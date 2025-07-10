@@ -58,7 +58,7 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-b from-black to-white text-white">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-b from-black to-gray-400 text-white">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -98,7 +98,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
-                  Sobre Nosotros
+                  <span>Sobre Nosotros</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Intermezzo Sound Studio™</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -141,7 +141,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
-                  Servicios
+                  <span>Servicios</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Nuestros Servicios</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -254,7 +254,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
-                  Proceso
+                  <span>Proceso</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Cómo Trabajamos</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -297,7 +297,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
-                  Modelos de Colaboración
+                  <span>Modelos de Colaboración</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Opciones Flexibles</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -338,7 +338,7 @@ export default function LandingPage() {
               <Card className="border-2 border-purple-600">
                 <CardHeader>
                   <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300 mb-2">
-                    Recomendado
+                    <span>Recomendado</span>
                   </div>
                   <CardTitle>Modelo Híbrido</CardTitle>
                   <CardDescription>Compartimos costos y beneficios</CardDescription>
@@ -406,7 +406,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
-                  Testimonios
+                  <span>Testimonios</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Lo Que Dicen Nuestros Artistas</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
