@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Main';
-  src: url('/fonts/BeautySalon Sans Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Second';
-  src: url('intermezzo/public/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 body {
   font-family: Arial, Helvetica, sans-serif;
