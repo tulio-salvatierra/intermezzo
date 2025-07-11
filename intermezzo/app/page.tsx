@@ -110,7 +110,7 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                src="/placeholder.svg?height=400&width=400"
+                src="/images/dorangel.png?height=400&width=400"
                 width={400}
                 height={400}
                 alt="Orangel Díaz, Fundador y Productor"
