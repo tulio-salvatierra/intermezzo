@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { EMAIL, PHONE_NUMBER } from "./constants/constants";
+import { EMAIL, INSTAGRAM, PHONE_NUMBER } from "./constants/constants";
 import {
   Card,
   CardContent,
@@ -610,44 +610,31 @@ export default function LandingPage() {
             />
             <span className="text-lg font-bold">Intermezzo Sound Studio™</span>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-            <Link
-              href="#"
-              className="text-xs md:text-sm text-muted-foreground hover:underline underline-offset-4"
-            >
-              Términos de Servicio
-            </Link>
-            <Link
-              href="#"
-              className="text-xs md:text-sm text-muted-foreground hover:underline underline-offset-4"
-            >
-              Política de Privacidad
-            </Link>
-          </div>
+      
           <div className="flex items-center gap-4">
             <Link
-              href="#"
+              href={INSTAGRAM}
               className="text-muted-foreground hover:text-foreground"
             >
               <Instagram className="h-5 w-5" />
               <span className="sr-only">Instagram</span>
             </Link>
             <Link
-              href="#"
+              href="https://www.youtube.com/@intermezzosound"
               className="text-muted-foreground hover:text-foreground"
             >
               <Youtube className="h-5 w-5" />
               <span className="sr-only">YouTube</span>
             </Link>
             <Link
-              href="#"
+              href={INSTAGRAM}
               className="text-muted-foreground hover:text-foreground"
             >
               <Facebook className="h-5 w-5" />
               <span className="sr-only">Facebook</span>
             </Link>
             <Link
-              href="#"
+              href={EMAIL}
               className="text-muted-foreground hover:text-foreground"
             >
               <Mail className="h-5 w-5" />
