@@ -312,7 +312,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6 bg-blend-overlay-dark bg-black/50 p-4">
             <div className="flex flex-col items-center justify-center space-y-4 text-center p-2">
               <div className="space-y-1">
-                <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
+                <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-900 px-3 py-1 text-sm text-gray-900 dark:text-gray-900">
                   <span>Proceso</span>
                 </div>
                 <h2 className="text-3xl text-white font-extrabold tracking-tighter md:text-4xl">
@@ -326,8 +326,8 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto  grid max-w-3xl gap-8 py-12">
-              <div className="grid gap-1 border-l-2 border-purple-600 pl-6 relative">
-                <div className="absolute w-4 h-4 bg-purple-600 rounded-full -left-[9px] top-1"></div>
+              <div className="grid gap-1 border-l-2 border-cyan-200 pl-6 relative">
+                <div className="absolute w-4 h-4 bg-cyan-200 rounded-full -left-[9px] top-1"></div>
                 <h3 className="text-xl font-black text-white">1. Evaluación Inicial</h3>
                 <p className="text-white">
                   Determinamos el nivel de equipamiento del artista (micrófonos,
@@ -335,8 +335,8 @@ export default function LandingPage() {
                   maximizar el potencial de su equipo.
                 </p>
               </div>
-              <div className="grid gap-1 border-l-2 border-purple-600 pl-6 relative">
-                <div className="absolute w-4 h-4 bg-purple-600 rounded-full -left-[9px] top-1"></div>
+              <div className="grid gap-1 border-l-2 border-cyan-200 pl-6 relative">
+                <div className="absolute w-4 h-4 bg-cyan-200 rounded-full -left-[9px] top-1"></div>
                 <h3 className="text-xl font-black text-white">
                   2. Asesoramiento y Entrenamiento
                 </h3>
@@ -345,8 +345,8 @@ export default function LandingPage() {
                   casa, optimizando los recursos disponibles.
                 </p>
               </div>
-              <div className="grid gap-1 border-l-2 border-purple-600 pl-6 relative">
-                <div className="absolute w-4 h-4 bg-purple-600 rounded-full -left-[9px] top-1"></div>
+              <div className="grid gap-1 border-l-2 border-cyan-200 pl-6 relative">
+                <div className="absolute w-4 h-4 bg-cyan-200 rounded-full -left-[9px] top-1"></div>
                 <h3 className="text-xl font-black text-white">
                   3. Producción y Supervisión
                 </h3>
@@ -367,7 +367,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
+                <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-900 px-3 py-1 text-sm text-gray-900 dark:text-purple-300">
                   <span>Modelos de Colaboración</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
@@ -408,14 +408,14 @@ export default function LandingPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Button className="w-full bg-cyan-200 hover:bg-cyan-900">
                     Seleccionar
                   </Button>
                 </CardFooter>
               </Card>
               <Card className="border-2 border-purple-600">
                 <CardHeader>
-                  <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300 mb-2">
+                  <div className="inline-block rounded-lg bg-cyan-200 dark:bg-purple-900 px-3 py-1 text-sm text-gray-900 dark:text-gray-900 mb-2">
                     <span>Recomendado</span>
                   </div>
                   <CardTitle>Modelo Híbrido</CardTitle>
@@ -444,7 +444,7 @@ export default function LandingPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Button className="w-full bg-cyan-200 hover:bg-cyan-900">
                     Seleccionar
                   </Button>
                 </CardFooter>
@@ -477,7 +477,7 @@ export default function LandingPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                  <Button className="w-full bg-cyan-200 hover:bg-cyan-900">
                     Consultar
                   </Button>
                 </CardFooter>
@@ -491,7 +491,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
+                <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-200 px-3 py-1 text-sm text-gray-900 dark:text-cyan-300">
                   <span>Testimonios</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
@@ -576,13 +576,13 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button className="bg-white text-purple-950 hover:bg-gray-200">
+                <Button className="bg-cyan-200 text-gray-900 hover:bg-cyan-700">
                   Iniciar Proyecto
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
-                  className="text-white border-white hover:bg-white/10"
+                  className="text-black border-white hover:bg-white/10 hover:text-white"
                 >
                   Solicitar Información
                 </Button>
@@ -599,7 +599,13 @@ export default function LandingPage() {
       <footer className="w-full border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex items-center gap-2">
-            <Music2 className="h-6 w-6 text-purple-600" />
+          <Image
+              src="/round_logo.png"
+              width={40}
+              height={40}
+              alt="Intermezzo Sound Studio™ Logo"
+              className="h-10 w-10"
+            />
             <span className="text-lg font-bold">Intermezzo Sound Studio™</span>
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:gap-6">
