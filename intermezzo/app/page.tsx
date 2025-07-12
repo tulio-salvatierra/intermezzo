@@ -43,25 +43,25 @@ export default function LandingPage() {
           <nav className="hidden md:flex gap-6">
             <Link
               href="#services"
-              className="text-sm font-medium hover:text-purple-600 transition-colors"
+              className="text-sm font-medium hover:text-cyan-200 transition-colors"
             >
               Servicios
             </Link>
             <Link
               href="#process"
-              className="text-sm font-medium hover:text-purple-600 transition-colors"
+              className="text-sm font-medium hover:text-cyan-200 transition-colors"
             >
               Proceso
             </Link>
             <Link
               href="#pricing"
-              className="text-sm font-medium hover:text-purple-600 transition-colors"
+              className="text-sm font-medium hover:text-cyan-200 transition-colors"
             >
               Precios
             </Link>
             <Link
               href="#contact"
-              className="text-sm font-medium hover:text-purple-600 transition-colors"
+              className="text-sm font-medium hover:text-cyan-200 transition-colors"
             >
               Contacto
             </Link>
@@ -73,7 +73,7 @@ export default function LandingPage() {
             >
               Iniciar Proyecto
             </Link>
-            <Button className="bg-purple-600 hover:bg-purple-700">
+            <Button className="bg-cyan-200 hover:bg-cyan-900 hover:text-white text-gray-900">
               Contactar
             </Button>
           </div>
@@ -97,13 +97,13 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button className="bg-purple-600 hover:bg-purple-700">
+                  <Button className="bg-cyan-200 hover:bg-cyan-900">
                     Iniciar Proyecto
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button
                     variant="outline"
-                    className="text-white border-white hover:bg-white/10"
+                    className="text-gray-900 border-white hover:bg-white/10 hover:text-white"
                   >
                     Conocer Más
                   </Button>
@@ -118,7 +118,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
+                <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-200 px-3 py-1 text-sm text-gray-900 dark:text-gray-900">
                   <span>Sobre Nosotros</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
@@ -143,7 +143,7 @@ export default function LandingPage() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold">Orangel Díaz</h3>
-                  <p className="text-purple-600 font-medium">
+                  <p className="text-cyan-200 font-medium">
                     Fundador y Productor
                   </p>
                 </div>
@@ -171,7 +171,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 dark:bg-purple-900 px-3 py-1 text-sm text-purple-600 dark:text-purple-300">
+                <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-900 px-3 py-1 text-sm text-gray-900 dark:text-gray-900">
                   <span>Servicios</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
@@ -186,7 +186,7 @@ export default function LandingPage() {
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardHeader>
-                  <Waveform className="h-10 w-10 text-purple-600 mb-2" />
+                  <Waveform className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Producción Musical Completa</CardTitle>
                   <CardDescription>
                     Desarrollo de proyectos desde los arreglos hasta la mezcla y
@@ -205,7 +205,7 @@ export default function LandingPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <Music className="h-10 w-10 text-purple-600 mb-2" />
+                  <Music className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Mezcla y Masterización</CardTitle>
                   <CardDescription>
                     Refinamos y equilibramos tus pistas para garantizar un
@@ -226,7 +226,7 @@ export default function LandingPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <Sparkles className="h-10 w-10 text-purple-600 mb-2" />
+                  <Sparkles className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Servicios de Arreglo</CardTitle>
                   <CardDescription>
                     Arreglos personalizados y grabaciones de instrumentos.
@@ -244,7 +244,7 @@ export default function LandingPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <Radio className="h-10 w-10 text-purple-600 mb-2" />
+                  <Radio className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Distribución Digital</CardTitle>
                   <CardDescription>
                     Publicamos tu música en todas las plataformas principales.
@@ -264,7 +264,7 @@ export default function LandingPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <PlayCircle className="h-10 w-10 text-purple-600 mb-2" />
+                  <PlayCircle className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Minicovers para Redes</CardTitle>
                   <CardDescription>
                     Contenido visual para promocionar tu música.
@@ -284,7 +284,7 @@ export default function LandingPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <Music2 className="h-10 w-10 text-purple-600 mb-2" />
+                  <Music2 className="h-10 w-10 text-cyan-200 mb-2" />
                   <CardTitle>Asesoría Legal y Registro</CardTitle>
                   <CardDescription>
                     Protección de tu música y gestión de derechos de autor.
