@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { EMAIL, PHONE_NUMBER } from "./constants/constants";
 import {
   Card,
   CardContent,
@@ -73,7 +74,7 @@ export default function LandingPage() {
             >
               Iniciar Proyecto
             </Link>
-            <Button className="bg-cyan-200 hover:bg-cyan-900 hover:text-white text-gray-900">
+            <Button contact={{mode: "email", value: `${EMAIL}`}} className="bg-cyan-200 hover:bg-cyan-900 hover:text-white text-gray-900">
               Contactar
             </Button>
           </div>
@@ -97,11 +98,12 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button className="bg-cyan-200 hover:bg-cyan-900">
+                  <Button contact={{mode: 'phone', value: `callto:${PHONE_NUMBER}` }} className="bg-cyan-200 hover:bg-cyan-900">
                     Iniciar Proyecto
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button
+                  scrollTarget="about"
                     variant="outline"
                     className="text-gray-900 border-white hover:bg-white/10 hover:text-white"
                   >
@@ -114,7 +116,7 @@ export default function LandingPage() {
         </section>
 
         {/* About Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">

@@ -1,6 +1,9 @@
+'use client'
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { scrollToId, triggerContact } from "@/lib/actions"
 
 import { cn } from "@/lib/utils"
 
@@ -37,16 +40,43 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+
+  /** If set, button will smooth-scroll to this element id */
+  scrollTarget?: string
+  /** If set, button will open mail or tel automatically  */
+  contact?: { mode: 'email' | 'phone'; value: string }
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      scrollTarget,
+      contact,
+      ...props
+    },
+    ref
+  ) => {
+    const Comp = asChild ? Slot : 'button'
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      // respect disabled + user-supplied onClick
+      if (props.disabled) e.preventDefault()
+      props.onClick?.(e)
+
+      if (scrollTarget) scrollToId(scrollTarget)
+      if (contact) triggerContact(contact.mode, contact.value)
+    }
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
         {...props}
+        ref={ref}
+        onClick={handleClick}
+        className={cn(buttonVariants({ variant, size, className }))}
       />
     )
   }
