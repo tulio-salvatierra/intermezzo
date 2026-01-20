@@ -32,6 +32,20 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
       suppressHydrationWarning
     >
+      {/* Preload UnicornStudio script for faster hero background loading */}
+      <Script
+        id="unicorn-studio-preload"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'script';
+            link.href = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js';
+            document.head.appendChild(link);
+          `,
+        }}
+      />
       {/* ② — Script en el head, se ejecuta tras la carga inicial */}
       <Script
         id="gtm"
