@@ -22,7 +22,7 @@ export default function Pricing() {
           <div className="inline-block rounded-lg bg-cyan-200 dark:bg-cyan-900 px-3 py-1 text-sm text-gray-900 dark:text-purple-300">
             <span>Modelos de Colaboración</span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl text-white">
             Opciones Flexibles
           </h2>
           <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
