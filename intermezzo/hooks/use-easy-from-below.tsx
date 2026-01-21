@@ -143,6 +143,9 @@ export function useEasyFromBelow(options: UseEasyFromBelowOptions = {}) {
           trigger: elementsToAnimate[0] as Element,
           start: scrollStart,
           toggleActions: once ? "play none none none" : "play none none reset",
+          // Ensure animations work on mobile
+          markers: false,
+          invalidateOnRefresh: true,
         };
       }
 

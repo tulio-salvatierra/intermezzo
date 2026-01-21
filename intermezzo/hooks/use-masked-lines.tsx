@@ -151,6 +151,9 @@ export function useMaskedLines(options: UseMaskedLinesOptions = {}) {
                 toggleActions: once
                   ? "play none none none"
                   : "play none none reset",
+                // Ensure animations work on mobile
+                markers: false,
+                invalidateOnRefresh: true,
               };
             }
 
