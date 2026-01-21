@@ -18,13 +18,16 @@ export const triggerContact = (mode: "email" | "phone", value: string) => {
     ? `mailto:${cleanValue}` 
     : `tel:${cleanValue.replace(/\s+/g, "")}`;
   
-  // Use window.open as fallback, or create an anchor element
-  try {
-    window.location.href = url;
-  } catch (error) {
-    // Fallback: create a temporary anchor element
-    const link = document.createElement("a");
-    link.href = url;
-    link.click();
-  }
+  // Create a temporary anchor element and click it
+  // This is more reliable than window.location.href or window.open
+  const link = document.createElement("a");
+  link.href = url;
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  
+  // Clean up after a short delay
+  setTimeout(() => {
+    document.body.removeChild(link);
+  }, 100);
 };

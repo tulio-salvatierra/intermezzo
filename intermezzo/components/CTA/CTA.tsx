@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ChevronRight } from 'lucide-react'
 import { useMaskedLines } from '@/hooks/use-masked-lines'
 import { useEasyFromBelow } from '@/hooks/use-easy-from-below'
-import { EMAIL } from '@/app/constants/constants';
+import { EMAIL, PHONE_NUMBER } from '@/app/constants/constants';
 
 export default function CTA() {
   const { containerRef: headingRef } = useMaskedLines({
@@ -49,16 +49,17 @@ export default function CTA() {
           </p>
         </div>
         <div ref={buttonsRef} className="flex flex-col gap-2 min-[400px]:flex-row">
-          <Button className="bg-cyan-200 text-gray-900 hover:bg-cyan-700">
+          <Button 
+            contact={{mode: 'phone', value: PHONE_NUMBER}} 
+            className="bg-cyan-200 text-gray-900 hover:bg-cyan-700"
+          >
             Iniciar Proyecto
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
           <Button
             variant="outline"
             className="text-black border-white hover:bg-white/10 hover:text-white"
-            onClick={() => {
-              window.open(`mailto:${EMAIL}`, '_blank');
-            }}
+            contact={{mode: 'email', value: EMAIL}}
           >
             Solicitar Información
           </Button>
