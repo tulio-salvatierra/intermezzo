@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ChevronRight } from 'lucide-react'
 import { useMaskedLines } from '@/hooks/use-masked-lines'
 import { useEasyFromBelow } from '@/hooks/use-easy-from-below'
+import { EMAIL } from '@/app/constants/constants';
 
 export default function CTA() {
   const { containerRef: headingRef } = useMaskedLines({
@@ -55,6 +56,9 @@ export default function CTA() {
           <Button
             variant="outline"
             className="text-black border-white hover:bg-white/10 hover:text-white"
+            onClick={() => {
+              window.open(`mailto:${EMAIL}`, '_blank');
+            }}
           >
             Solicitar Información
           </Button>
