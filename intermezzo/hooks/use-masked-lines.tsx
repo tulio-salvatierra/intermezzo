@@ -1,157 +1,207 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Note: SplitText is a premium GSAP plugin
+// If you don't have a GSAP membership, you'll need to use the free alternative
+// or purchase a GSAP membership at https://greensock.com/club/
 
 interface UseMaskedLinesOptions {
   /**
-   * Delay between each line animation in milliseconds
-   * @default 100
+   * Delay between each line animation in seconds
+   * @default 0.28
    */
-  lineDelay?: number;
+  stagger?: number;
   /**
-   * Duration of each line animation in milliseconds
-   * @default 800
+   * Duration of each line animation in seconds
+   * @default 1.6
    */
   duration?: number;
   /**
    * Easing function for the animation
-   * @default "cubic-bezier(0.16, 1, 0.3, 1)"
+   * @default "power3.out"
    */
-  easing?: string;
+  ease?: string;
   /**
-   * Direction of the mask reveal
-   * @default "horizontal"
+   * Initial delay before animation starts in seconds
+   * @default 0.15
    */
-  direction?: "horizontal" | "vertical";
+  delay?: number;
   /**
-   * Whether to start animation on mount
-   * @default true
+   * Whether to trigger animation on scroll
+   * @default false
    */
-  startOnMount?: boolean;
+  scroll?: boolean;
+  /**
+   * Scroll trigger start position
+   * @default "top 80%"
+   */
+  scrollStart?: string;
+  /**
+   * Whether animation should play only once on scroll
+   * @default false
+   */
+  once?: boolean;
+  /**
+   * Variant: "lines" or "words"
+   * @default "lines"
+   */
+  variant?: "lines" | "words";
 }
 
 /**
- * Hook for animating text lines with a mask effect
+ * Hook for animating text lines with a mask effect using GSAP SplitText
  * 
  * @example
  * ```tsx
- * const { containerRef, isAnimating } = useMaskedLines({
- *   lineDelay: 150,
- *   duration: 1000
+ * const { containerRef } = useMaskedLines({
+ *   stagger: 0.2,
+ *   duration: 1.5
  * });
  * 
  * return (
- *   <div ref={containerRef}>
- *     <p>Line 1</p>
- *     <p>Line 2</p>
- *     <p>Line 3</p>
- *   </div>
+ *   <h1 ref={containerRef}>
+ *     Your text here that will be split into lines
+ *   </h1>
  * );
  * ```
  */
 export function useMaskedLines(options: UseMaskedLinesOptions = {}) {
   const {
-    lineDelay = 100,
-    duration = 800,
-    easing = "cubic-bezier(0.16, 1, 0.3, 1)",
-    direction = "horizontal",
-    startOnMount = true,
+    stagger = 0.28,
+    duration = 1.6,
+    ease = "power3.out",
+    delay = 0.15,
+    scroll = false,
+    scrollStart = "top 80%",
+    once = false,
+    variant = "lines",
   } = options;
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const containerRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    if (!containerRef.current || !startOnMount) return;
-
-    const container = containerRef.current;
-    const lines = Array.from(container.children) as HTMLElement[];
-
-    if (lines.length === 0) return;
-
-    // Set initial state for all lines
-    lines.forEach((line) => {
-      line.style.overflow = "hidden";
-      line.style.position = "relative";
+  useGSAP(
+    () => {
+      if (typeof window === "undefined") return;
       
-      if (direction === "horizontal") {
-        line.style.clipPath = "inset(0 100% 0 0)";
-      } else {
-        line.style.clipPath = "inset(100% 0 0 0)";
-      }
-      
-      line.style.transition = `clip-path ${duration}ms ${easing}`;
-    });
+      const el = containerRef.current;
+      if (!el) return;
 
-    setIsAnimating(true);
+      // Dynamically import plugins to avoid SSR issues
+      Promise.all([
+        import("gsap/SplitText"),
+        scroll ? import("gsap/ScrollTrigger") : Promise.resolve(null),
+      ]).then(([splitModule, scrollModule]) => {
+        const SplitText = splitModule.SplitText;
+        const ScrollTrigger = scrollModule?.default || scrollModule;
 
-    // Animate each line with delay
-    lines.forEach((line, index) => {
-      setTimeout(() => {
-        if (direction === "horizontal") {
-          line.style.clipPath = "inset(0 0% 0 0)";
+        if (!SplitText) {
+          console.warn("GSAP SplitText plugin not available. Make sure you have a GSAP membership.");
+          return;
+        }
+
+        // Register plugins
+        if (ScrollTrigger) {
+          gsap.registerPlugin(SplitText, ScrollTrigger);
         } else {
-          line.style.clipPath = "inset(0% 0 0 0)";
+          gsap.registerPlugin(SplitText);
         }
 
-        // Mark as complete when last line finishes
-        if (index === lines.length - 1) {
-          setTimeout(() => {
-            setIsAnimating(false);
-            setIsComplete(true);
-          }, duration);
-        }
-      }, index * lineDelay);
-    });
+        // Ensure base node is visible
+        gsap.set(el, { opacity: 1 });
 
-    // Cleanup function
-    return () => {
-      lines.forEach((line) => {
-        line.style.overflow = "";
-        line.style.position = "";
-        line.style.clipPath = "";
-        line.style.transition = "";
-      });
-    };
-  }, [lineDelay, duration, easing, direction, startOnMount]);
+        const isWords = variant === "words";
 
-  /**
-   * Manually trigger the animation
-   */
-  const trigger = () => {
-    if (containerRef.current && !isAnimating) {
-      setIsComplete(false);
-      // Reset and re-run animation
-      const container = containerRef.current;
-      const lines = Array.from(container.children) as HTMLElement[];
-      
-      lines.forEach((line) => {
-        if (direction === "horizontal") {
-          line.style.clipPath = "inset(0 100% 0 0)";
-        } else {
-          line.style.clipPath = "inset(100% 0 0 0)";
-        }
-      });
+        const splitInstance = SplitText.create(el, {
+          ...(isWords
+            ? {
+                type: "words",
+                mask: "words",
+              }
+            : {
+                type: "words,lines",
+                linesClass: "line",
+                mask: "lines",
+              }),
+          autoSplit: true,
+          // This runs every time SplitText resplits (fonts, resize, etc.)
+          onSplit: (split: any) => {
+            const targets = isWords ? split.words : split.lines;
+            if (!targets || !targets.length) return;
 
-      setTimeout(() => {
-        lines.forEach((line, index) => {
-          setTimeout(() => {
-            if (direction === "horizontal") {
-              line.style.clipPath = "inset(0 0% 0 0)";
-            } else {
-              line.style.clipPath = "inset(0% 0 0 0)";
+            const animationConfig: gsap.TweenVars = {
+              duration,
+              yPercent: 120,
+              opacity: 0,
+              stagger,
+              ease,
+              delay,
+            };
+
+            if (scroll && ScrollTrigger) {
+              animationConfig.scrollTrigger = {
+                trigger: el,
+                start: scrollStart,
+                toggleActions: once
+                  ? "play none none none"
+                  : "play none none reset",
+              };
             }
-          }, index * lineDelay);
+
+            // This tween always gets the *current* nodes
+            gsap.from(targets, animationConfig);
+          },
         });
-      }, 50);
+
+        // Cleanup
+        return () => {
+          if (splitInstance) {
+            splitInstance.revert();
+          }
+        };
+      });
+    },
+    {
+      // If any of these change, the context re-runs cleanly
+      dependencies: [scroll, scrollStart, once, variant, stagger, duration, ease, delay],
+      scope: containerRef,
     }
-  };
+  );
 
   return {
     containerRef,
-    isAnimating,
-    isComplete,
-    trigger,
   };
+}
+
+/**
+ * Scroll-triggered version of useMaskedLines
+ * Automatically triggers when element scrolls into view at top 70% of viewport
+ * 
+ * @example
+ * ```tsx
+ * const { containerRef } = useMaskedLinesScroll({
+ *   stagger: 0.2,
+ *   duration: 1.5
+ * });
+ * 
+ * return (
+ *   <h2 ref={containerRef}>
+ *     This will animate when scrolled into view
+ *   </h2>
+ * );
+ * ```
+ */
+export function useMaskedLinesScroll(options: Omit<UseMaskedLinesOptions, "scroll" | "scrollStart"> & { scrollStart?: string } = {}) {
+  return useMaskedLines({
+    ...options,
+    scroll: true,
+    scrollStart: options.scrollStart || "top 70%",
+    once: options.once !== undefined ? options.once : true,
+  });
 }

@@ -16,7 +16,7 @@ export default function Footer() {
               alt="Intermezzo Sound Studio™ Logo"
               className="h-10 w-10"
             />
-            <span className="text-lg font-bold">Intermezzo Sound Studio™</span>
+            <span className="text-lg md:text-2xl font-bold">Intermezzo Sound Studio™</span>
           </div>
       
           <div className="flex items-center gap-4">

@@ -64,17 +64,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       // respect disabled + user-supplied onClick
-      if (props.disabled) e.preventDefault()
+      if (props.disabled) {
+        e.preventDefault()
+        return
+      }
+      
+      // Call user's onClick first
       props.onClick?.(e)
 
-      if (scrollTarget) scrollToId(scrollTarget)
-      if (contact) triggerContact(contact.mode, contact.value)
+      // Handle scroll target
+      if (scrollTarget) {
+        e.preventDefault()
+        scrollToId(scrollTarget)
+      }
+      
+      // Handle contact action
+      if (contact) {
+        e.preventDefault()
+        triggerContact(contact.mode, contact.value)
+      }
     }
 
     return (
       <Comp
         {...props}
         ref={ref}
+        type={props.type || "button"}
         onClick={handleClick}
         className={cn(buttonVariants({ variant, size, className }))}
       />

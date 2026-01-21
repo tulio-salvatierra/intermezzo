@@ -1,167 +1,158 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface UseEasyFromBelowOptions {
   /**
-   * Threshold for Intersection Observer (0-1)
-   * @default 0.1
+   * CSS selector to target specific elements within the container
+   * If not provided, will animate children or the container itself
    */
-  threshold?: number;
+  selector?: string;
   /**
-   * Root margin for Intersection Observer
-   * @default "0px"
-   */
-  rootMargin?: string;
-  /**
-   * Duration of the animation in milliseconds
-   * @default 800
+   * Duration of the animation in seconds
+   * @default 1.5
    */
   duration?: number;
   /**
-   * Delay before animation starts in milliseconds
-   * @default 0
+   * Delay between each element animation (stagger) in seconds
+   * @default 0.15
    */
-  delay?: number;
+  stagger?: number;
   /**
    * Distance to slide from below in pixels
-   * @default 50
+   * @default 30
    */
   distance?: number;
   /**
    * Easing function for the animation
-   * @default "cubic-bezier(0.16, 1, 0.3, 1)"
+   * @default "power3.out"
    */
-  easing?: string;
+  ease?: string;
   /**
-   * Whether to trigger animation only once
+   * Scroll trigger start position
+   * @default "top 95%"
+   */
+  scrollStart?: string;
+  /**
+   * Whether animation should play only once
    * @default true
    */
   once?: boolean;
+  /**
+   * Whether to use scroll trigger or animate immediately
+   * @default true (uses scroll trigger)
+   */
+  scroll?: boolean;
+  /**
+   * Delay before animation starts (only used when scroll is false)
+   * @default 0
+   */
+  delay?: number;
 }
 
 /**
- * Hook for scroll-triggered fade-in and slide-up animations
+ * Hook for scroll-triggered fade-in and slide-up animations using GSAP
  * 
  * @example
  * ```tsx
- * const { ref, isVisible } = useEasyFromBelow({
- *   threshold: 0.2,
+ * const { ref } = useEasyFromBelow({
  *   distance: 30,
- *   duration: 1000
+ *   duration: 1.5,
+ *   stagger: 0.2
  * });
  * 
  * return (
- *   <div ref={ref} className={isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}>
- *     Content here
+ *   <div ref={ref}>
+ *     <div>Item 1</div>
+ *     <div>Item 2</div>
+ *     <div>Item 3</div>
+ *   </div>
+ * );
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // With selector to target specific elements
+ * const { ref } = useEasyFromBelow({
+ *   selector: ".animate-item",
+ *   stagger: 0.1
+ * });
+ * 
+ * return (
+ *   <div ref={ref}>
+ *     <div className="animate-item">Item 1</div>
+ *     <div className="animate-item">Item 2</div>
  *   </div>
  * );
  * ```
  */
 export function useEasyFromBelow(options: UseEasyFromBelowOptions = {}) {
   const {
-    threshold = 0.1,
-    rootMargin = "0px",
-    duration = 800,
-    delay = 0,
-    distance = 50,
-    easing = "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector,
+    duration = 1.5,
+    stagger = 0.15,
+    distance = 30,
+    ease = "power3.out",
+    scrollStart = "top 95%",
     once = true,
+    scroll = true,
+    delay = 0,
   } = options;
 
-  const ref = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+  useGSAP(
+    () => {
+      if (!containerRef.current) return;
 
-    // If already animated and once is true, don't observe again
-    if (hasAnimated && once) return;
+      const element = containerRef.current;
+      let elementsToAnimate: Element[];
 
-    // Set initial styles
-    element.style.opacity = "0";
-    element.style.transform = `translateY(${distance}px)`;
-    element.style.transition = `opacity ${duration}ms ${easing}, transform ${duration}ms ${easing}`;
-    element.style.transitionDelay = `${delay}ms`;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              element.style.opacity = "1";
-              element.style.transform = "translateY(0)";
-              setIsVisible(true);
-              setHasAnimated(true);
-
-              // Disconnect observer if once is true
-              if (once) {
-                observer.disconnect();
-              }
-            }, delay);
-          } else if (!once) {
-            // Reset animation if once is false
-            element.style.opacity = "0";
-            element.style.transform = `translateY(${distance}px)`;
-            setIsVisible(false);
-          }
-        });
-      },
-      {
-        threshold,
-        rootMargin,
+      if (selector) {
+        // If selector provided, find all matching elements within the container
+        elementsToAnimate = Array.from(element.querySelectorAll(selector));
+      } else {
+        // Default: check for children or animate self
+        const children = element.children;
+        elementsToAnimate = children.length > 0 ? Array.from(children) : [element];
       }
-    );
 
-    observer.observe(element);
+      if (elementsToAnimate.length === 0) return;
 
-    // Cleanup
-    return () => {
-      observer.disconnect();
-      if (element) {
-        element.style.opacity = "";
-        element.style.transform = "";
-        element.style.transition = "";
-        element.style.transitionDelay = "";
+      // Set initial state for all elements
+      gsap.set(elementsToAnimate, { opacity: 0, y: distance });
+
+      // Animation config
+      const animationConfig: gsap.TweenVars = {
+        opacity: 1,
+        y: 0,
+        duration,
+        stagger,
+        ease,
+        delay,
+      };
+
+      // Add scroll trigger if enabled
+      if (scroll) {
+        animationConfig.scrollTrigger = {
+          trigger: elementsToAnimate[0] as Element,
+          start: scrollStart,
+          toggleActions: once ? "play none none none" : "play none none reset",
+        };
       }
-    };
-  }, [threshold, rootMargin, duration, delay, distance, easing, once, hasAnimated]);
 
-  /**
-   * Manually trigger the animation
-   */
-  const trigger = () => {
-    const element = ref.current;
-    if (element && !hasAnimated) {
-      setTimeout(() => {
-        element.style.opacity = "1";
-        element.style.transform = "translateY(0)";
-        setIsVisible(true);
-        setHasAnimated(true);
-      }, delay);
-    }
-  };
-
-  /**
-   * Reset the animation
-   */
-  const reset = () => {
-    const element = ref.current;
-    if (element) {
-      element.style.opacity = "0";
-      element.style.transform = `translateY(${distance}px)`;
-      setIsVisible(false);
-      setHasAnimated(false);
-    }
-  };
+      // Animate all elements with stagger
+      gsap.to(elementsToAnimate, animationConfig);
+    },
+    { scope: containerRef, dependencies: [selector, duration, stagger, distance, ease, scrollStart, once, scroll, delay] }
+  );
 
   return {
-    ref,
-    isVisible,
-    hasAnimated,
-    trigger,
-    reset,
+    ref: containerRef as React.RefObject<any>,
   };
 }
